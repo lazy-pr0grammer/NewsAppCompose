@@ -14,10 +14,7 @@ class NewsRepositoryImpl @Inject constructor(
     private val newsApis: NewsApis,
 ) : NewsRepository {
     override fun everything(
-        query: String,
-        apiKey: String,
-        page: Int,
-        pageSize: Int
+        apiKey: String
     ): Flow<PagingData<Article>> {
         return Pager(
             config = PagingConfig(pageSize = 10),

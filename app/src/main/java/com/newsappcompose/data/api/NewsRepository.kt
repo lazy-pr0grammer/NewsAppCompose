@@ -6,9 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {
     fun everything(
-        query: String,
-        apiKey: String,
-        page: Int,
-        pageSize: Int
+        apiKey: String
     ): Flow<PagingData<Article>>
 }

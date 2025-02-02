@@ -20,7 +20,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_KEY", """BuildConfig.API_KEY""")
+        buildConfigField("String", "API_KEY", "\"a1cbe31ae51b4987801cab3a6eabe06b\"")
     }
 
     buildTypes {
@@ -66,6 +66,8 @@ dependencies {
 
     implementation("androidx.paging:paging-runtime:3.3.5")
     implementation("androidx.paging:paging-compose:3.3.5")
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.4")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
