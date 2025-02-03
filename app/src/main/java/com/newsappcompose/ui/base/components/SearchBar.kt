@@ -108,6 +108,6 @@ fun SearchBar(
             WindowInsets(0.dp)
         }
     ) {
-        // Search suggestions or results
+
     }
 }

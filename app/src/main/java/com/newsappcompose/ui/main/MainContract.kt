@@ -12,4 +12,5 @@ data class MainState(
 
 data class MainActions(
     val onRefreshAction: () -> Unit = {},
+    val onOpenDetailsAction: (String, String, String) -> Unit = { _, _, _ -> },
 )

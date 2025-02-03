@@ -24,14 +24,6 @@ fun TopAppBar(
             Text(text = "NewsAppCompose")
         },
         modifier = modifier,
-        navigationIcon = {
-            IconButton(onClick = onBackAction) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                    contentDescription = "Back",
-                )
-            }
-        },
         colors = TopAppBarDefaults.topAppBarColors(
             navigationIconContentColor = MaterialTheme.colorScheme.primary,
         ),

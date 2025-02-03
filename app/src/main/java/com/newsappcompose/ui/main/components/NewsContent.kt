@@ -30,9 +30,9 @@ import com.newsappcompose.data.toDate
 import kotlinx.coroutines.Dispatchers
 
 @Composable
-fun NewsContent(article: Article) {
+fun NewsContent(article: Article, onItemClicked: () -> Unit) {
     Card(
-        onClick = {},
+        onClick = onItemClicked,
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier.fillMaxWidth()
     ) {

@@ -15,7 +15,7 @@ fun RootNavHost(navHostController: NavHostController) {
         startDestination = Home
     ) {
         composable<Home> {
-            MainRoute()
+            MainRoute(navHostController)
         }
 
         composable<Details> {
@@ -29,4 +29,4 @@ fun RootNavHost(navHostController: NavHostController) {
 object Home
 
 @Serializable
-object Details
+data class Details(val url: String?, val key: String?, val source: String?)

@@ -6,6 +6,5 @@ plugins {
 
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.kotlinKsp) apply false
-    alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.kotlin.serialization) apply false
 }

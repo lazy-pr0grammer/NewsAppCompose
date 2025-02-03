@@ -8,5 +8,5 @@ import com.newsappcompose.ui.main.MainRoute
 @Preview
 @Composable
 private fun MainActivityPreview() {
-    MainRoute()
+    //MainRoute()
 }

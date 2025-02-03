@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
@@ -15,6 +16,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -30,6 +32,10 @@ import com.newsappcompose.ui.main.components.NewsContent
 @Composable
 fun MainScreen(state: MainState, actions: MainActions) {
 
+    var query by remember {
+        mutableStateOf("")
+    }
+
     var isSearchActive by rememberSaveable {
         mutableStateOf(false)
     }
@@ -37,6 +43,14 @@ fun MainScreen(state: MainState, actions: MainActions) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     val newsArticles = state.newsPagingData?.collectAsLazyPagingItems()
+
+    val filteredArticles = remember(query, newsArticles) {
+        newsArticles?.itemSnapshotList?.items?.filter {
+            it.title?.contains(query, ignoreCase = true) == true ||
+                    it.author?.contains(query, ignoreCase = true) == true
+        }
+    }
+
 
     Scaffold(
         topBar = {
@@ -49,8 +63,12 @@ fun MainScreen(state: MainState, actions: MainActions) {
                 )
 
                 SearchBar(
-                    onQueryChange = {},
-                    onActiveChanged = {},
+                    onQueryChange = {
+                        query = it
+                    },
+                    onActiveChanged = {
+                        //isSearchActive = it
+                    },
                     isSearchActive = isSearchActive,
                 )
             }
@@ -71,14 +89,16 @@ fun MainScreen(state: MainState, actions: MainActions) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        newsArticles?.itemCount?.let {
-                            items(it) { count ->
-                                newsArticles[count]?.let { data ->
-                                    NewsContent(data)
-                                }
+                        val articles = if (query.isNotEmpty()) filteredArticles else newsArticles?.itemSnapshotList?.items
 
-                                if (count > -1) {
-                                    Spacer(Modifier.height(8.dp))
+                        articles?.let { data ->
+                            items(data.size) {
+                                NewsContent(data[it]) {
+                                    actions.onOpenDetailsAction(
+                                        data[it].url ?: "",
+                                        data[it].title ?: "",
+                                        data[it].author ?: ""
+                                    )
                                 }
                             }
                         }
