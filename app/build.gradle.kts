@@ -5,6 +5,8 @@ plugins {
 
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlinKsp)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -55,6 +57,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    implementation("androidx.navigation:navigation-compose:2.8.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
     ksp("com.google.dagger:hilt-android-compiler:2.52")
     implementation("com.google.dagger:hilt-android:2.52")

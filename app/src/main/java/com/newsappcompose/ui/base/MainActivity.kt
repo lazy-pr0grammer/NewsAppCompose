@@ -16,9 +16,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.newsappcompose.ui.base.components.SearchBar
 import com.newsappcompose.ui.base.components.TopAppBar
 import com.newsappcompose.ui.main.MainRoute
+import com.newsappcompose.ui.route.RootNavHost
 import com.newsappcompose.ui.theme.NewsAppComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,32 +33,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             NewsAppComposeTheme {
-                var isSearchActive by rememberSaveable { mutableStateOf(false) }
-                val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-
-                Scaffold(
-                    topBar = {
-                        Column {
-                            TopAppBar(
-                                scrollBehavior = scrollBehavior,
-                                onBackAction = {
-                                    isSearchActive = false
-                                }
-                            )
-
-                            SearchBar(
-                                onQueryChange = {},
-                                onActiveChanged = {},
-                                isSearchActive = isSearchActive,
-                            )
-                        }
-                    },
-                    modifier = Modifier.fillMaxSize()
-                ) { innerPadding ->
-                    Box(Modifier.padding(innerPadding)) {
-                        MainRoute()
-                    }
-                }
+                val navController = rememberNavController()
+                RootNavHost(navController)
             }
         }
     }
